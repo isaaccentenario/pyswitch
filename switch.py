@@ -1,33 +1,36 @@
 # Simple switch statement
 
-class switch:
+class Switch:
 	item = ''
-	def __init__(self,val): 
+	def __init__(self,val,return_false = True): 
 		self.item = val
+		self.return_false = return_false
 
 	def case(self, i, callback):
 		if self.item == i or str(self.item) == str(i):
 			return callback()
-		return False
 
+		if self.return_false == True:
+			return False
+
+		return ""
 
 # to use
-foo = 'foo'
+variable = 'foo'
 
 def casefoo():
 	print "it's foo"
-	return foo
 
 def casebar():
 	print "it's bar"
 
-switch = switch( foo )
+switch = Switch( variable )
 
 switch.case('foo', casefoo)
 switch.case('bar', casebar)
 
 # you can use lambda functions to return values
-bar = switch.case('foo', lambda: 'its lambda foo' )
+switch_no_false_return = Switch(variable, False) # the False parameter prevents False return value
+bar = switch_no_false_return.case('notfoo', lambda: 'its lambda foo')
 
-if bar != False:
-	print bar
+print bar
